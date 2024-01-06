@@ -1,0 +1,42 @@
+struct Vector {
+    int x;
+    int y;
+    int z
+}
+
+global s = new Vector {x = 1; y = 2; z = 3};
+global t = new Vector {x = 3; y = 2; z = 1};
+
+Vector scalarmult (Vector v, int val){
+    var res = new Vector{x = v.x * val; y = v.y * val; z = v.z * val};
+    return res;
+}
+
+Vector vecadd (Vector a, Vector b){
+    var res = new Vector{x = a.x + b.x; y = a.y + b.y; z = a.z + b.z};
+    return res;
+}
+
+int dotprod (Vector a, Vector b){
+    var res = a.x * b.x + a.y * b.y + a.z + b.z;
+    return res;
+}
+
+Vector vecneg (Vector v){
+    v.x = -v.x;
+    v.y = -v.y;
+    v.z = -v.z;
+    return v;
+}
+
+Vector crossprod (Vector a, Vector b){
+    var c = new Vector{x = a.y * b.z; y = a.z * b.x; z = a.x * b.y};
+    var d = vecneg(new Vector{x = a.z * b.y; y = a.x * b.z; z = a.y * b.x});
+    return vecadd(c, d);
+}
+
+int program(int argc, string[] argv) {
+  var q = scalarmult(s, 2);
+  var r = crossprod(s, t);
+  return dotprod(q, r);
+}
